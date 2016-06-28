@@ -1,4 +1,4 @@
-# go-base58
+# go-base58 [![Build Status](https://api.travis-ci.org/jimeh/go-base58.svg)](https://travis-ci.org/jimeh/go-base58)
 
 A Base58 encoding and decoding package for [Go](https://golang.org/).
 
