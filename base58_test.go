@@ -244,7 +244,8 @@ func (s *Base58Suite) TestDecodeWithAlphabet() {
 
 func (s *Base58Suite) TestDecodeWithAlphabetError() {
 	assert := assert.New(s.T())
-	errMsg := "\"AaBbCc\" is not a valid base58 string."
+	errMsg := "\"AaBbCc\" is not a valid input for alphabet " +
+		"\"abcdefghjklmnpqrstuvwxyz\"."
 
 	result, err := DecodeWithAlphabet("AaBbCc", "abcdefghjklmnpqrstuvwxyz")
 

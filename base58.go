@@ -2,6 +2,7 @@ package base58
 
 import (
 	"errors"
+	"fmt"
 	"strings"
 )
 
@@ -46,12 +47,26 @@ func DecodeWithAlphabet(str string, alphabet string) (int, error) {
 		char := string(str[i-1])
 		index := strings.Index(alphabet, char)
 		if index == -1 {
-			errorMsg := "\"" + str + "\" is not a valid base58 string."
-			return -1, errors.New(errorMsg)
+			return -1, decodeError(str, alphabet)
 		}
 		num += multi * index
 		multi = multi * base
 	}
 
 	return num, nil
+}
+
+func decodeError(str string, alphabet string) error {
+	var msg string
+
+	if alphabet == Alphabet {
+		msg = fmt.Sprintf("\"%s\" is not a valid base58 string.", str)
+	} else {
+		msg = fmt.Sprintf(
+			"\"%s\" is not a valid input for alphabet \"%s\".",
+			str, alphabet,
+		)
+	}
+
+	return errors.New(msg)
 }
