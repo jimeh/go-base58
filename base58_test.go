@@ -190,17 +190,13 @@ func (s *Base58Suite) TestEncode() {
 	assert := assert.New(s.T())
 
 	for str, num := range examples {
-		assert.Equal(str, Encode(num))
+		result := Encode(num)
+		assert.Equal(str, result)
 	}
 }
 
 func (s *Base58Suite) TestDecode() {
 	assert := assert.New(s.T())
-
-	errMsg := "\"invalid@base58.string\" is not a valid base58 string."
-	result, err := Decode("invalid@base58.string")
-	assert.Equal(-1, result)
-	assert.Equal(errors.New(errMsg), err)
 
 	for str, num := range examples {
 		result, _ := Decode(str)
