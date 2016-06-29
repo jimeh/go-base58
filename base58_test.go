@@ -177,13 +177,6 @@ var examples = map[string]int{
 	"6hJPEq": 3471202816, "6hGMH7": 3470806020, "6hGp5L": 3470729904,
 }
 
-var myAlphabet = "abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ123456789"
-var myExamples = map[string]int{
-	"frMj9u": 3469905409, "fr3bSF": 3472804260, "frYrT8": 3472074356,
-	"frUXLH": 3471394398, "frTYPz": 3471202816, "frRWSg": 3470806020,
-	"frRyeV": 3470729904, "frQp15": 3470507135, "frP2SC": 3470432637,
-}
-
 type Base58Suite struct {
 	suite.Suite
 }
@@ -220,34 +213,6 @@ func (s *Base58Suite) TestDecodeError() {
 	errMsg := "\"invalid@base58.string\" is not a valid base58 string."
 
 	result, err := Decode("invalid@base58.string")
-
-	assert.Equal(-1, result)
-	assert.Equal(errors.New(errMsg), err)
-}
-
-func (s *Base58Suite) TestEncodeWithAlphabet() {
-	assert := assert.New(s.T())
-
-	for str, num := range myExamples {
-		assert.Equal(str, EncodeWithAlphabet(num, myAlphabet))
-	}
-}
-
-func (s *Base58Suite) TestDecodeWithAlphabet() {
-	assert := assert.New(s.T())
-
-	for str, num := range myExamples {
-		result, _ := DecodeWithAlphabet(str, myAlphabet)
-		assert.Equal(num, result)
-	}
-}
-
-func (s *Base58Suite) TestDecodeWithAlphabetError() {
-	assert := assert.New(s.T())
-	errMsg := "\"AaBbCc\" is not a valid input for alphabet " +
-		"\"abcdefghjklmnpqrstuvwxyz\"."
-
-	result, err := DecodeWithAlphabet("AaBbCc", "abcdefghjklmnpqrstuvwxyz")
 
 	assert.Equal(-1, result)
 	assert.Equal(errors.New(errMsg), err)
