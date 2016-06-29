@@ -256,3 +256,15 @@ func (s *Base58Suite) TestDecodeWithAlphabetError() {
 func TestBase58Suite(t *testing.T) {
 	suite.Run(t, new(Base58Suite))
 }
+
+func BenchmarkEncode(b *testing.B) {
+	for n := 0; n < b.N; n++ {
+		Encode(3471391110)
+	}
+}
+
+func BenchmarkDecode(b *testing.B) {
+	for n := 0; n < b.N; n++ {
+		Decode("6hKMCS")
+	}
+}
