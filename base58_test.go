@@ -265,6 +265,6 @@ func BenchmarkEncode(b *testing.B) {
 
 func BenchmarkDecode(b *testing.B) {
 	for n := 0; n < b.N; n++ {
-		Decode("6hKMCS")
+		_, _ = Decode("6hKMCS")
 	}
 }
