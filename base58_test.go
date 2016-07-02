@@ -1,7 +1,6 @@
 package base58
 
 import (
-	"errors"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -206,12 +205,11 @@ func (s *Base58Suite) TestDecode() {
 
 func (s *Base58Suite) TestDecodeError() {
 	assert := assert.New(s.T())
-	errMsg := "\"invalid@base58.string\" is not a valid base58 string."
 
 	result, err := Decode("invalid@base58.string")
 
 	assert.Equal(-1, result)
-	assert.Equal(errors.New(errMsg), err)
+	assert.Equal("invalid base58", err.Error())
 }
 
 func TestBase58Suite(t *testing.T) {

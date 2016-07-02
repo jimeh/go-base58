@@ -2,13 +2,14 @@ package base58
 
 import (
 	"errors"
-	"fmt"
 	"strings"
 )
 
 // Alphabet is the default alphabet.
 const Alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
 const base = len(Alphabet)
+
+var errInvalidBase58 = errors.New("invalid base58")
 
 // Encode converts a base10 integer to a base58 string using the default
 // alphabet.
@@ -33,16 +34,11 @@ func Decode(str string) (int, error) {
 		char := string(str[i-1])
 		index := strings.Index(Alphabet, char)
 		if index == -1 {
-			return -1, decodeError(str)
+			return -1, errInvalidBase58
 		}
 		num += multi * index
 		multi = multi * base
 	}
 
 	return num, nil
-}
-
-func decodeError(str string) error {
-	msg := fmt.Sprintf("\"%s\" is not a valid base58 string.", str)
-	return errors.New(msg)
 }
