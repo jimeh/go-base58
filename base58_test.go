@@ -3,7 +3,6 @@ package base58
 import (
 	"testing"
 
-	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/suite"
 )
 
@@ -182,34 +181,28 @@ type Base58Suite struct {
 
 func (s *Base58Suite) TestAlphabet() {
 	expected := "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
-	assert.Equal(s.T(), expected, Alphabet)
+	s.Equal(expected, Alphabet)
 }
 
 func (s *Base58Suite) TestEncode() {
-	assert := assert.New(s.T())
-
 	for str, num := range examples {
 		result := Encode(num)
-		assert.Equal(str, result)
+		s.Equal(str, result)
 	}
 }
 
 func (s *Base58Suite) TestDecode() {
-	assert := assert.New(s.T())
-
 	for str, num := range examples {
 		result, _ := Decode(str)
-		assert.Equal(num, result)
+		s.Equal(num, result)
 	}
 }
 
 func (s *Base58Suite) TestDecodeError() {
-	assert := assert.New(s.T())
-
 	result, err := Decode("invalid@base58.string")
 
-	assert.Equal(-1, result)
-	assert.Equal("invalid base58", err.Error())
+	s.Equal(-1, result)
+	s.Equal("invalid base58", err.Error())
 }
 
 func TestBase58Suite(t *testing.T) {
