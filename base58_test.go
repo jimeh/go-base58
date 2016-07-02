@@ -6,6 +6,8 @@ import (
 	"github.com/stretchr/testify/suite"
 )
 
+// Test Cases
+
 var examples = map[string]int{
 	"6hKMCS": 3471391110, "6hDrmR": 3470152229, "6hHHZB": 3470988633,
 	"6hHKum": 3470993664, "6hLgFW": 3471485480, "6hBRKR": 3469844075,
@@ -175,9 +177,13 @@ var examples = map[string]int{
 	"6hJPEq": 3471202816, "6hGMH7": 3470806020, "6hGp5L": 3470729904,
 }
 
+// Setup Suite
+
 type Base58Suite struct {
 	suite.Suite
 }
+
+// Tests
 
 func (s *Base58Suite) TestAlphabet() {
 	expected := "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
@@ -205,9 +211,13 @@ func (s *Base58Suite) TestDecodeError() {
 	s.Equal("invalid base58", err.Error())
 }
 
+// Run Base58Suite
+
 func TestBase58Suite(t *testing.T) {
 	suite.Run(t, new(Base58Suite))
 }
+
+// Benchmarks
 
 func BenchmarkEncode(b *testing.B) {
 	for n := 0; n < b.N; n++ {
