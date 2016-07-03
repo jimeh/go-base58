@@ -186,26 +186,28 @@ type Base58Suite struct {
 // Tests
 
 func (s *Base58Suite) TestAlphabet() {
-	expected := "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
-	s.Equal(expected, Alphabet)
+	s.Equal(
+		[]byte("123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"),
+		Alphabet,
+	)
 }
 
 func (s *Base58Suite) TestEncode() {
 	for str, num := range examples {
 		result := Encode(num)
-		s.Equal(str, result)
+		s.Equal([]byte(str), result)
 	}
 }
 
 func (s *Base58Suite) TestDecode() {
 	for str, num := range examples {
-		result, _ := Decode(str)
+		result, _ := Decode([]byte(str))
 		s.Equal(num, result)
 	}
 }
 
 func (s *Base58Suite) TestDecodeError() {
-	result, err := Decode("invalid@base58.string")
+	result, err := Decode([]byte("invalid@base58.string"))
 
 	s.Equal(-1, result)
 	s.Equal("invalid base58", err.Error())
@@ -227,6 +229,6 @@ func BenchmarkEncode(b *testing.B) {
 
 func BenchmarkDecode(b *testing.B) {
 	for n := 0; n < b.N; n++ {
-		_, _ = Decode("6hKMCS")
+		_, _ = Decode([]byte("6hKMCS"))
 	}
 }
